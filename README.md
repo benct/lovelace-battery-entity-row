@@ -5,9 +5,10 @@ Show battery states or attributes with dynamic icon on entity rows in Home Assis
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/commits/master)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row)
 
-**NOTE:** This is not a standalone lovelace card, but a row element for the [entities](https://www.home-assistant.io/lovelace/entities/) card.
-
 Rewritten and improved version of cbulock's [battery-entity](https://github.com/cbulock/lovelace-battery-entity) card _(deprecated/unmaintained)_.
+
+**NOTE:** This is not a standalone lovelace card, but a row element for the [entities](https://www.home-assistant.io/lovelace/entities/) card.
+If you need a standalone card or want _a lot_ more customizability, check out maxwroc's [battery-state-card](https://github.com/maxwroc/battery-state-card).
 
 ## Installation
 
