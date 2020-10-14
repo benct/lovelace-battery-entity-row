@@ -1,7 +1,8 @@
 # battery-entity-row
 Show battery states or attributes with dynamic icon on entity rows in Home Assistant's Lovelace UI
 
-[![GH-release](https://img.shields.io/badge/version-1.0.0-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-battery-entity-row/master/battery-entity-row.js)
+[![GH-release](https://img.shields.io/github/v/release/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/releases)
+[![GH-downloads](https://img.shields.io/github/downloads/benct/lovelace-battery-entity-row/total?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/releases)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/commits/master)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row)
 
