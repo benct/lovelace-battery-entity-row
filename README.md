@@ -4,7 +4,8 @@ Show battery states or attributes with dynamic icon on entity rows in Home Assis
 [![GH-release](https://img.shields.io/github/v/release/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/releases)
 [![GH-downloads](https://img.shields.io/github/downloads/benct/lovelace-battery-entity-row/total?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/releases)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/commits/master)
-[![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row)
+[![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-battery-entity-row.svg?color=red&style=flat-square)](https://github.com/benct/lovelace-battery-entity-row)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
 
 Rewritten and improved version of cbulock's [battery-entity](https://github.com/cbulock/lovelace-battery-entity) card _(deprecated/unmaintained)_.
 
@@ -22,7 +23,16 @@ lovelace:
       type: module
 ```
 
-The above configuration can be managed directly in the Configuration -> Lovelace Dashboards -> Resources panel when not using YAML mode.
+_OR_ install using [HACS](https://hacs.xyz/) and add this (if in YAML mode):
+```yaml
+lovelace:
+  resources:
+    - url: /hacsfiles/lovelace-battery-entity-row/battery-entity-row.js
+      type: module
+```
+
+The above configuration can be managed directly in the Configuration -> Lovelace Dashboards -> Resources panel when not using YAML mode,
+or added by clicking the "Add to lovelace" button on the HACS dashboard after installing the plugin.
 
 ## Configuration
 
