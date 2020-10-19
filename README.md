@@ -72,6 +72,19 @@ entities:
     critical: 25
 ```
 
+Usage in [auto-entities](https://github.com/thomasloven/lovelace-auto-entities) card:
+```yaml
+type: custom:auto-entities
+card:
+  type: entities
+filter:
+  include:
+    - entity_id: sensor.battery*   # or use other matchers
+      options:
+        type: custom:battery-entity-row
+        <battery-entity-row options>
+```
+
 ## My cards
 
 [xiaomi-vacuum-card](https://github.com/benct/lovelace-xiaomi-vacuum-card) | 
