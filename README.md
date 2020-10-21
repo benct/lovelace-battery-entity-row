@@ -48,8 +48,16 @@ This card produces an `entity-row` and must therefore be configured as an entity
 | icon | string | | Override dynamic battery `icon`
 | warning | number | `35` | Level at which the icon will appear yellow
 | critical | number | `15` | Level at which the icon will appear red
+| charging | bool/object | `false` | Set to `true` to indicate charging based on entity state. See charging object for more options.
 
 Currently limited support for `secondary_info` option only with value `last-changed`.
+
+### Charging object
+
+| Name | Type | Default | Description
+| ---- | ---- | ------- | -----------
+| entity | string | `main entity` | Get charging state from another entity
+| attribute | string | | Get charging state from an attribute
 
 ## Examples
 
@@ -70,6 +78,14 @@ entities:
     secondary_info: last-changed
     warning: 50
     critical: 25
+    charging: true
+
+  - type: custom:battery-entity-row
+    entity: sensor.bedroom_temperature
+    charging:
+      entity: binary_sensor.bedroom_temperature_charger
+      attribute: charging
+      icon: mdi:battery-alert
 ```
 
 Usage in [auto-entities](https://github.com/thomasloven/lovelace-auto-entities) card:

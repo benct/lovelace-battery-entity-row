@@ -95,6 +95,7 @@
                 this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
 
                 if (this.stateObj) {
+                    const charging = this.getChargingState(this._config.charging)
                     const batteryLevel = this.getBatteryLevel(this._config.attribute);
 
                     this.state = {
@@ -102,7 +103,7 @@
                         level: batteryLevel,
                         name: this._config.name || this.stateObj.attributes.friendly_name,
                         unit: this._config.unit === false ? null : (this._config.unit || '%'),
-                        icon: this._config.icon || this.getIcon(batteryLevel),
+                        icon: this._config.icon || this.getIcon(batteryLevel, charging),
                         color: this.getColor(batteryLevel)
                     };
                 }
@@ -117,14 +118,24 @@
             return Number.isFinite(parseInt(batteryValue)) ? Math.round(parseInt(batteryValue, 10)) : null;
         }
 
-        getIcon(batteryLevel) {
+        getChargingState(chargingConfig) {
+            if (!chargingConfig) return false;
+            if (chargingConfig === true) return this.stateObj.state === 'on';
+
+            const entity = (chargingConfig.entity && chargingConfig.entity in this._hass.states)
+                ? this._hass.states[chargingConfig.entity] : this.stateObj;
+            const state = chargingConfig.attribute ? entity.attributes[chargingConfig.attribute] : entity.state;
+            return state === 'on';
+        }
+
+        getIcon(batteryLevel, charging) {
             if (!batteryLevel) return 'mdi:battery-unknown';
             const roundedLevel = Math.round(batteryLevel / 10) * 10;
             return roundedLevel >= 100
-                ? 'mdi:battery'
+                ? (charging ? 'mdi:battery-charging-100' : 'mdi:battery')
                 : roundedLevel === 0
-                    ? 'mdi:battery-outline'
-                    : `mdi:battery-${roundedLevel}`;
+                    ? (charging ? 'mdi:battery-charging-outline' : 'mdi:battery-outline')
+                    : (charging ? 'mdi:battery-charging-' : 'mdi:battery-') + roundedLevel;
         }
 
         getColor(batteryLevel) {
