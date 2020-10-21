@@ -85,7 +85,6 @@ entities:
     charging:
       entity: binary_sensor.bedroom_temperature_charger
       attribute: charging
-      icon: mdi:battery-alert
 ```
 
 Usage in [auto-entities](https://github.com/thomasloven/lovelace-auto-entities) card:
