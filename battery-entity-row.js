@@ -64,7 +64,7 @@
                     ${this.renderSecondaryInfo()}
                 </div>
                 <div class="state">
-                    ${this.state.level}&nbsp;${this.state.unit}
+                    ${this.state.valid ? html`${this.state.level}&nbsp;${this.state.unit}` : this._hass.localize('state.default.unknown')}
                 </div>
             </div>` : html`
             <hui-warning>
@@ -96,8 +96,9 @@
                     const batteryLevel = this.getBatteryLevel(this._config.attribute);
 
                     this.state = {
-                        name: this._config.name || this.stateObj.attributes.friendly_name,
+                        valid: batteryLevel !== null,
                         level: batteryLevel,
+                        name: this._config.name || this.stateObj.attributes.friendly_name,
                         unit: this._config.unit || '%',
                         icon: this._config.icon || this.getIcon(batteryLevel),
                         color: this.getColor(batteryLevel)
@@ -111,10 +112,11 @@
             if (this.stateObj.attributes.battery) batteryValue = this.stateObj.attributes.battery;
             if (this.stateObj.attributes.battery_level) batteryValue = this.stateObj.attributes.battery_level;
             if (this.stateObj.attributes[attribute]) batteryValue = this.stateObj.attributes[attribute];
-            return Number.isFinite(parseInt(batteryValue)) ? Math.round(parseInt(batteryValue, 10)) : 0;
+            return Number.isFinite(parseInt(batteryValue)) ? Math.round(parseInt(batteryValue, 10)) : null;
         }
 
         getIcon(batteryLevel) {
+            if (!batteryLevel) return 'mdi:battery-unknown';
             const roundedLevel = Math.round(batteryLevel / 10) * 10;
             return roundedLevel >= 100
                 ? 'mdi:battery'
@@ -124,6 +126,7 @@
         }
 
         getColor(batteryLevel) {
+            if (!batteryLevel) return 'unknown';
             const warning = this._config.warning || 35;
             const critical = this._config.critical || 15;
             return (batteryLevel > warning)
