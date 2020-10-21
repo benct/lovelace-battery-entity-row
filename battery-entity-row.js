@@ -64,7 +64,9 @@
                     ${this.renderSecondaryInfo()}
                 </div>
                 <div class="state">
-                    ${this.state.valid ? html`${this.state.level}&nbsp;${this.state.unit}` : this._hass.localize('state.default.unknown')}
+                    ${this.state.valid
+                ? html`${this.state.level}${this.state.unit && html`&nbsp;${this.state.unit}`}`
+                : this._hass.localize('state.default.unknown')}
                 </div>
             </div>` : html`
             <hui-warning>
@@ -99,7 +101,7 @@
                         valid: batteryLevel !== null,
                         level: batteryLevel,
                         name: this._config.name || this.stateObj.attributes.friendly_name,
-                        unit: this._config.unit || '%',
+                        unit: this._config.unit === false ? null : (this._config.unit || '%'),
                         icon: this._config.icon || this.getIcon(batteryLevel),
                         color: this.getColor(batteryLevel)
                     };

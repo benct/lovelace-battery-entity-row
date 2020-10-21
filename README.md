@@ -44,7 +44,7 @@ This card produces an `entity-row` and must therefore be configured as an entity
 | entity | string | **Required** | `domain.my_entity_id`
 | attribute | string | `battery_level` | Override battery level attribute
 | name | string | `friendly_name` | Override entity `friendly_name`
-| unit | string | `%` | Override battery unit of measurement
+| unit | string/bool | `%` | Override default `unit`, or hide with `false`
 | icon | string | | Override dynamic battery `icon`
 | warning | number | `35` | Level at which the icon will appear yellow
 | critical | number | `15` | Level at which the icon will appear red
