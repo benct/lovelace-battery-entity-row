@@ -4,9 +4,7 @@
         'color: cyan; background: black; font-weight: bold;',
         'color: darkblue; background: white; font-weight: bold;',
     );
-
-    const html = LitElement.prototype.html;
-    const css = LitElement.prototype.css;
+    const {html, css} = LitElement.prototype;
 
     class BatteryEntityRow extends LitElement {
 
@@ -51,7 +49,10 @@
         }
 
         render() {
-            return this.stateObj ? html`
+            if (!this._hass || !this._config) return html``;
+            if (!this.stateObj) return this.renderWarning();
+
+            return html`
             <state-badge
                 .stateObj="${this.stateObj}"
                 .overrideIcon="${this.state.icon}"
@@ -68,10 +69,7 @@
                 ? html`${this.state.level}${this.state.unit && html`&nbsp;${this.state.unit}`}`
                 : this._hass.localize('state.default.unknown')}
                 </div>
-            </div>` : html`
-            <hui-warning>
-                ${this._hass.localize('ui.panel.lovelace.warning.entity_not_found', 'entity', this._config.entity)}
-            </hui-warning>`;
+            </div>`;
         }
 
         renderSecondaryInfo() {
@@ -79,6 +77,12 @@
                 html`<div class="secondary">
                     <ha-relative-time datetime="${this.stateObj.last_changed}" .hass="${this._hass}"></ha-relative-time>
                 </div>` : null;
+        }
+
+        renderWarning() {
+            return html`<hui-warning>
+                ${this._hass.localize('ui.panel.lovelace.warning.entity_not_found', 'entity', this._config.entity)}
+            </hui-warning>`;
         }
 
         setConfig(config) {
