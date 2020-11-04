@@ -6,6 +6,8 @@
     );
     const {html, css} = LitElement.prototype;
 
+    const defaultOnStates = ['on', 'charging'];
+
     class BatteryEntityRow extends LitElement {
 
         static get properties() {
@@ -117,12 +119,17 @@
 
         getChargingState(chargingConfig) {
             if (!chargingConfig) return false;
-            if (chargingConfig === true) return this.stateObj.state === 'on';
+            if (chargingConfig === true) {
+                return defaultOnStates.includes(this.stateObj.state.toString().toLowerCase());
+            }
+
+            const additionalStates = chargingConfig.state || [];
+            const onStates = defaultOnStates.concat(additionalStates).map(value => value.toString().toLowerCase());
 
             const entity = (chargingConfig.entity && chargingConfig.entity in this._hass.states)
                 ? this._hass.states[chargingConfig.entity] : this.stateObj;
             const state = chargingConfig.attribute ? entity.attributes[chargingConfig.attribute] : entity.state;
-            return state === 'on';
+            return onStates.includes(state.toString().toLowerCase());
         }
 
         getIcon(batteryLevel, charging) {

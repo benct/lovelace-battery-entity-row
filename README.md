@@ -58,6 +58,7 @@ Currently limited support for `secondary_info` option only with value `last-chan
 | ---- | ---- | ------- | -----------
 | entity | string | `main entity` | Get charging state from another entity
 | attribute | string | | Get charging state from an attribute
+| state | string/list | `"on"`, `"charging"` | Add values that indicate charging (case insensitive)
 
 ## Examples
 
@@ -82,9 +83,13 @@ entities:
 
   - type: custom:battery-entity-row
     entity: sensor.bedroom_temperature
+    name: Charging battery
     charging:
       entity: binary_sensor.bedroom_temperature_charger
       attribute: charging
+      state:
+        - Enabled
+        - is_charging
 ```
 
 Usage in [auto-entities](https://github.com/thomasloven/lovelace-auto-entities) card:
