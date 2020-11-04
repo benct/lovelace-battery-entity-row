@@ -12,8 +12,7 @@
             return {
                 _hass: Object,
                 _config: Object,
-                stateObj: Object,
-                state: Object
+                stateObj: Object
             }
         }
 
@@ -90,6 +89,10 @@
 
             this.moreInfo = () => this.fireEvent(this, 'hass-more-info', {entityId: config.entity});
             this._config = config;
+        }
+
+        shouldUpdate(changedProps) {
+            return changedProps.has('stateObj');
         }
 
         set hass(hass) {
