@@ -51,23 +51,27 @@
             if (!this._hass || !this._config) return html``;
             if (!this.stateObj) return this.renderWarning();
 
+            const charging = this.getChargingState(this._config.charging)
+            const batteryLevel = this.getBatteryLevel(this._config.attribute);
+            const icon = this._config.icon || this.getIcon(batteryLevel, charging);
+            const color = this.getColor(batteryLevel);
+
+            const name = this._config.name || this.stateObj.attributes.friendly_name;
+            const unit = this._config.unit === false ? null : (this._config.unit || '%');
+            const state = batteryLevel !== null
+                ? html`${batteryLevel}${unit && html`&nbsp;${unit}`}`
+                : this._hass.localize('state.default.unknown');
+
             return html`
             <state-badge
                 .stateObj="${this.stateObj}"
-                .overrideIcon="${this.state.icon}"
+                .overrideIcon="${icon}"
                 @click="${this.moreInfo}"
-                class="pointer ${this.state.color}">
+                class="pointer ${color}">
             </state-badge>
             <div class="flex" @click="${this.moreInfo}">
-                <div class="info">
-                    ${this.state.name}
-                    ${this.renderSecondaryInfo()}
-                </div>
-                <div class="state">
-                    ${this.state.valid
-                ? html`${this.state.level}${this.state.unit && html`&nbsp;${this.state.unit}`}`
-                : this._hass.localize('state.default.unknown')}
-                </div>
+                <div class="info">${name}${this.renderSecondaryInfo()}</div>
+                <div class="state">${state}</div>
             </div>`;
         }
 
@@ -100,20 +104,6 @@
 
             if (hass && this._config) {
                 this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
-
-                if (this.stateObj) {
-                    const charging = this.getChargingState(this._config.charging)
-                    const batteryLevel = this.getBatteryLevel(this._config.attribute);
-
-                    this.state = {
-                        valid: batteryLevel !== null,
-                        level: batteryLevel,
-                        name: this._config.name || this.stateObj.attributes.friendly_name,
-                        unit: this._config.unit === false ? null : (this._config.unit || '%'),
-                        icon: this._config.icon || this.getIcon(batteryLevel, charging),
-                        color: this.getColor(batteryLevel)
-                    };
-                }
             }
         }
 
