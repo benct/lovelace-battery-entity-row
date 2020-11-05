@@ -6,7 +6,7 @@
     );
     const {html, css} = LitElement.prototype;
 
-    const defaultOnStates = ['on', 'charging'];
+    const defaultOnStates = ['on', 'charging', 'true'];
 
     class BatteryEntityRow extends LitElement {
 
