@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.2.0
+
+**Added:**
+- Support some predefined string values (#5)
+- Support custom charging state or attribute values (#7)
+
+**Changed:**
+- Prevent unnecessary re-rendering with `shouldUpdate` function (#8)
+- Refactor and improve configuration handling
+
 ## 1.1.0
 
 **Added:**

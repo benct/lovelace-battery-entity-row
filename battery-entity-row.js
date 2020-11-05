@@ -1,6 +1,6 @@
 ((LitElement) => {
     console.info(
-        '%c BATTERY-ENTITY-ROW %c 1.1.0 ',
+        '%c BATTERY-ENTITY-ROW %c 1.2.0 ',
         'color: cyan; background: black; font-weight: bold;',
         'color: darkblue; background: white; font-weight: bold;',
     );
