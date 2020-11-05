@@ -54,15 +54,21 @@
             if (!this.stateObj) return this.renderWarning();
 
             const charging = this.getChargingState(this._config.charging)
-            const batteryLevel = this.getBatteryLevel(this._config.attribute);
-            const icon = this._config.icon || this.getIcon(batteryLevel, charging);
-            const color = this.getColor(batteryLevel);
+            const batteryValue = this.getBatteryLevel(this._config.attribute);
+
+            const isUnavailable = !batteryValue || ['unavailable', 'unknown'].includes(batteryValue);
+            const isNumeric = !isNaN(parseFloat(batteryValue)) && isFinite(batteryValue);
+
+            const numericValue = isUnavailable ? null : isNumeric ? batteryValue : this.parseStringValue(batteryValue);
+
+            const icon = this._config.icon || this.getIcon(numericValue, charging);
+            const color = this.getColor(numericValue);
 
             const name = this._config.name || this.stateObj.attributes.friendly_name;
-            const unit = this._config.unit === false ? null : (this._config.unit || '%');
-            const state = batteryLevel !== null
-                ? html`${batteryLevel}${unit && html`&nbsp;${unit}`}`
-                : this._hass.localize('state.default.unknown');
+            const unit = this._config.unit === false ? null : (this._config.unit || (isNumeric ? '%' : null));
+            const state = isUnavailable
+                ? this._hass.localize('state.default.unknown')
+                : html`${batteryValue}${unit && html`&nbsp;${unit}`}`;
 
             return html`
             <state-badge
@@ -114,7 +120,8 @@
             if (this.stateObj.attributes.battery) batteryValue = this.stateObj.attributes.battery;
             if (this.stateObj.attributes.battery_level) batteryValue = this.stateObj.attributes.battery_level;
             if (this.stateObj.attributes[attribute]) batteryValue = this.stateObj.attributes[attribute];
-            return Number.isFinite(parseInt(batteryValue)) ? Math.round(parseInt(batteryValue, 10)) : null;
+            return !isNaN(parseFloat(batteryValue)) && isFinite(batteryValue)
+                ? Math.round(parseInt(batteryValue, 10)) : batteryValue;
         }
 
         getChargingState(chargingConfig) {
@@ -151,6 +158,15 @@
                 : (batteryLevel > critical)
                     ? 'warning'
                     : 'critical';
+        }
+
+        parseStringValue(v) {
+            const val = v.toString().toLowerCase();
+            if (['full', 'high', 'max', 'maximum'].includes(val)) return 90;
+            if (['medium', 'med', 'normal'].includes(val)) return 50;
+            if (['low', 'min', 'minimal'].includes(val)) return 10;
+            if (['empty', 'critical', 'none'].includes(val)) return 0;
+            return null;
         }
 
         fireEvent(node, type, detail = {}, options = {}) {
