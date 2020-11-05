@@ -1,4 +1,5 @@
 # battery-entity-row
+
 Show battery states or attributes with dynamic icon on entity rows in Home Assistant's Lovelace UI
 
 [![GH-release](https://img.shields.io/github/v/release/benct/lovelace-battery-entity-row.svg?style=flat-square)](https://github.com/benct/lovelace-battery-entity-row/releases)
@@ -16,6 +17,7 @@ If you need a standalone card or want _a lot_ more customizability, check out ma
 
 Manually add [battery-entity-row.js](https://raw.githubusercontent.com/benct/lovelace-battery-entity-row/master/battery-entity-row.js)
 to your `<config>/www/` folder and add the following to the `configuration.yaml` file:
+
 ```yaml
 lovelace:
   resources:
@@ -24,6 +26,7 @@ lovelace:
 ```
 
 _OR_ install using [HACS](https://hacs.xyz/) and add this (if in YAML mode):
+
 ```yaml
 lovelace:
   resources:
@@ -38,27 +41,31 @@ or added by clicking the "Add to lovelace" button on the HACS dashboard after in
 
 This card produces an `entity-row` and must therefore be configured as an entity in an [entities](https://www.home-assistant.io/lovelace/entities/) card.
 
-| Name | Type | Default | Description
-| ---- | ---- | ------- | -----------
-| type | string | **Required** | `custom:battery-entity-row`
-| entity | string | **Required** | `domain.my_entity_id`
-| attribute | string | `battery_level` | Override battery level attribute
-| name | string | `friendly_name` | Override entity `friendly_name`
-| unit | string/bool | `%` | Override default `unit`, or hide with `false`
-| icon | string | | Override dynamic battery `icon`
-| warning | number | `35` | Level at which the icon will appear yellow
-| critical | number | `15` | Level at which the icon will appear red
-| charging | bool/object | `false` | Set to `true` to indicate charging based on entity state. See charging object for more options.
+The battery level value is fetched from the entity `state`, from the attribute `battery` or `battery_level`,
+or from a custom attribute defined with the `attribute` option. Numeric values (`0-100`) and some predefined
+string values (`high`, `normal`, `low`, etc..) are supported as a battery level value.
 
-Currently limited support for `secondary_info` option only with value `last-changed`.
+| Name      | Type        | Default         | Description                                                                    |
+| --------- | ----------- | --------------- | ------------------------------------------------------------------------------ |
+| type      | string      | **Required**    | `custom:battery-entity-row`                                                    |
+| entity    | string      | **Required**    | `domain.my_entity_id`                                                          |
+| attribute | string      | `battery_level` | Override battery level attribute                                               |
+| name      | string      | `friendly_name` | Override entity `friendly_name`                                                |
+| unit      | string/bool | `%`             | Override default `unit`, or hide with `false`                                  |
+| icon      | string      |                 | Override dynamic battery `icon`                                                |
+| warning   | number      | `35`            | Level at which the icon will appear yellow                                     |
+| critical  | number      | `15`            | Level at which the icon will appear red                                        |
+| charging  | bool/object | `false`         | Indicate charging based on entity state. See charging object for more options. |
+
+Currently limited support for `secondary_info` option with value `last-changed`.
 
 ### Charging object
 
-| Name | Type | Default | Description
-| ---- | ---- | ------- | -----------
-| entity | string | `main entity` | Get charging state from another entity
-| attribute | string | | Get charging state from an attribute
-| state | string/list | `"on"`, `"charging"` | Add values that indicate charging (case insensitive)
+| Name      | Type        | Default              | Description                                          |
+| --------- | ----------- | -------------------- | ---------------------------------------------------- |
+| entity    | string      | `main entity`        | Get charging state from another entity               |
+| attribute | string      |                      | Get charging state from an attribute                 |
+| state     | string/list | `"on"`, `"charging"` | Add values that indicate charging (case insensitive) |
 
 ## Examples
 
@@ -93,6 +100,7 @@ entities:
 ```
 
 Usage in [auto-entities](https://github.com/thomasloven/lovelace-auto-entities) card:
+
 ```yaml
 type: custom:auto-entities
 card:
@@ -107,10 +115,10 @@ filter:
 
 ## My cards
 
-[xiaomi-vacuum-card](https://github.com/benct/lovelace-xiaomi-vacuum-card) | 
-[multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row) | 
-[github-entity-row](https://github.com/benct/lovelace-github-entity-row) | 
-[battery-entity-row](https://github.com/benct/lovelace-battery-entity-row) | 
+[xiaomi-vacuum-card](https://github.com/benct/lovelace-xiaomi-vacuum-card) |
+[multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row) |
+[github-entity-row](https://github.com/benct/lovelace-github-entity-row) |
+[battery-entity-row](https://github.com/benct/lovelace-battery-entity-row) |
 [~~attribute-entity-row~~](https://github.com/benct/lovelace-attribute-entity-row)
 
 [![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)
