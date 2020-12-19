@@ -45,17 +45,18 @@ The battery level value is fetched from the entity `state`, from the attribute `
 or from a custom attribute defined with the `attribute` option. Numeric values (`0-100`) and some predefined
 string values (`high`, `normal`, `low`, etc..) are supported as a battery level value.
 
-| Name      | Type        | Default         | Description                                                                    |
-| --------- | ----------- | --------------- | ------------------------------------------------------------------------------ |
-| type      | string      | **Required**    | `custom:battery-entity-row`                                                    |
-| entity    | string      | **Required**    | `domain.my_entity_id`                                                          |
-| attribute | string      | `battery_level` | Override battery level attribute                                               |
-| name      | string      | `friendly_name` | Override entity `friendly_name`                                                |
-| unit      | string/bool | `%`             | Override default `unit`, or hide with `false`                                  |
-| icon      | string      |                 | Override dynamic battery `icon`                                                |
-| warning   | number      | `35`            | Level at which the icon will appear yellow                                     |
-| critical  | number      | `15`            | Level at which the icon will appear red                                        |
-| charging  | bool/object | `false`         | Indicate charging based on entity state. See charging object for more options. |
+| Name            | Type        | Default         | Description                                                                    |
+| --------------- | ----------- | --------------- | ------------------------------------------------------------------------------ |
+| type            | string      | **Required**    | `custom:battery-entity-row`                                                    |
+| entity          | string      | **Required**    | `domain.my_entity_id`                                                          |
+| attribute       | string      | `battery_level` | Override battery level attribute                                               |
+| name            | string      | `friendly_name` | Override entity `friendly_name`                                                |
+| secondary\_info | string      |                 | `last-changed`, `last-updated` or an attribute of the entity.                  |
+| unit            | string/bool | `%`             | Override default `unit`, or hide with `false`                                  |
+| icon            | string      |                 | Override dynamic battery `icon`                                                |
+| warning         | number      | `35`            | Level at which the icon will appear yellow                                     |
+| critical        | number      | `15`            | Level at which the icon will appear red                                        |
+| charging        | bool/object | `false`         | Indicate charging based on entity state. See charging object for more options. |
 
 Currently limited support for `secondary_info` option with value `last-changed`.
 
