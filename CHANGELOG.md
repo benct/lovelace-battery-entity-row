@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.3.0
+
+**Added:**
+- Support `last-updated` on secondary_info (#10)
+- Support custom entity attributes on secondary_info (#10)
+
+**Fixed:**
+- Breaking change to relative datetime objects (#9)
+
 ## 1.2.0
 
 **Added:**

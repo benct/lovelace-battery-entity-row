@@ -21,7 +21,7 @@ to your `<config>/www/` folder and add the following to the `configuration.yaml`
 ```yaml
 lovelace:
   resources:
-    - url: /local/battery-entity-row.js?v=1.2.0
+    - url: /local/battery-entity-row.js?v=1.3.0
       type: module
 ```
 
