@@ -87,8 +87,10 @@
             const secondaryInfo = this._config.secondary_info;
             let content = undefined;
 
-            if (secondaryInfo === 'last-changed' || secondaryInfo === 'last-updated') {
-                content = html`<ha-relative-time .datetime="${this.stateObj[secondaryInfo]}" .hass="${this._hass}"></ha-relative-time>`;
+            if (secondaryInfo === 'last-changed') {
+                content = html`<ha-relative-time .datetime="${this.stateObj.last_changed}" .hass="${this._hass}"></ha-relative-time>`;
+            } else if (secondaryInfo === 'last-updated') {
+                content = html`<ha-relative-time .datetime="${this.stateObj.last_updated}" .hass="${this._hass}"></ha-relative-time>`;
             } else if (secondaryInfo in this.stateObj.attributes) {
                 content = this.stateObj.attributes[secondaryInfo];
             }
